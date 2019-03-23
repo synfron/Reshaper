@@ -1,0 +1,70 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:ReshaperUI.Display.Xaml.Themes.Common">
+	<ResourceDictionary.MergedDictionaries>
+	</ResourceDictionary.MergedDictionaries>
+	<Thickness x:Key="ContentSectionMargin">8</Thickness>
+	<Thickness x:Key="FieldMargin">8,0</Thickness>
+	<Thickness x:Key="TwoColumnLeftSideMargin">8,0,4,0</Thickness>
+	<Thickness x:Key="TwoColumnRightSideMargin">4,0,8,0</Thickness>
+	<Thickness x:Key="SettingFieldCheckboxMargin">8,5,8,5</Thickness>
+	<Thickness x:Key="SettingFieldMargin">0,5,0,5</Thickness>
+	<GridLength x:Key="SideBarColumnWidth">250</GridLength>
+	<Style TargetType="TextBox" x:Key="TextBoxField">
+		<Setter Property="FontFamily" Value="Segoe UI" />
+		<Setter Property="FontSize" Value="14" />
+		<Setter Property="HorizontalAlignment" Value="Left" />
+		<Setter Property="Width" Value="250" />
+		<Setter Property="Margin" Value="{StaticResource SettingFieldMargin}" />
+		<Setter Property="Validation.ErrorTemplate" Value="{x:Null}" />
+		<Style.Triggers>
+			<Trigger Property="Validation.HasError" Value="true">
+				<Setter Property="ToolTip"
+          Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+Path=(Validation.Errors)[0].ErrorContent}"/>
+				<Setter Property="Background" Value="#f4e6e6" />
+			</Trigger>
+		</Style.Triggers>
+	</Style>
+	<Style TargetType="ComboBox">
+		<Setter Property="FontFamily" Value="Segoe UI" />
+		<Setter Property="FontSize" Value="14" />
+		<Setter Property="HorizontalAlignment" Value="Left" />
+		<Setter Property="MinWidth" Value="150" />
+		<Setter Property="Height" Value="25" />
+		<Setter Property="Margin" Value="{StaticResource SettingFieldMargin}" />
+		<Setter Property="Validation.ErrorTemplate" Value="{x:Null}" />
+		<Style.Triggers>
+			<Trigger Property="Validation.HasError" Value="true">
+				<Setter Property="ToolTip"
+          Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+Path=(Validation.Errors)[0].ErrorContent}"/>
+				<Setter Property="Background" Value="#f4e6e6" />
+			</Trigger>
+		</Style.Triggers>
+	</Style>
+	<Style TargetType="Button">
+		<Setter Property="Margin" Value="8" />
+		<Setter Property="Padding" Value="8,4" />
+	</Style>
+	<Style TargetType="CheckBox">
+		<Setter Property="FontFamily" Value="Segoe UI" />
+		<Setter Property="FontSize" Value="14" />
+		<Setter Property="HorizontalAlignment" Value="Left" />
+		<Setter Property="Margin" Value="{StaticResource SettingFieldMargin}" />
+		<Setter Property="Validation.ErrorTemplate" Value="{x:Null}" />
+		<Style.Triggers>
+			<Trigger Property="Validation.HasError" Value="true">
+				<Setter Property="ToolTip"
+          Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+Path=(Validation.Errors)[0].ErrorContent}"/>
+				<Setter Property="Background" Value="#f4e6e6" />
+			</Trigger>
+		</Style.Triggers>
+	</Style>
+	<Style TargetType="Label" x:Key="FieldHeader">
+		<Setter Property="FontSize" Value="14" />
+		<Setter Property="FontFamily" Value="Segoe UI" />
+		<Setter Property="HorizontalAlignment" Value="Left" />
+	</Style>
+</ResourceDictionary>

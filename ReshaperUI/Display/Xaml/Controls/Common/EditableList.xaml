@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="ReshaperUI.Display.Xaml.Controls.Common.EditableList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ReshaperUI.Display.Xaml.Controls.Common"
+			 xmlns:converters="clr-namespace:ReshaperUI.Converters"
+             mc:Ignorable="d" x:Name="Self">
+	<UserControl.Resources>
+		<converters:StringToEscapedStringConverter x:Key="enumConverter"></converters:StringToEscapedStringConverter>
+	</UserControl.Resources>
+    <Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*" MinWidth="100" />
+			<ColumnDefinition Width="Auto" />
+		</Grid.ColumnDefinitions>
+		<Grid Grid.Column="0">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="*" />
+			</Grid.RowDefinitions>
+			<TextBox Name="EnterBox" Grid.Row="0" />
+			<ListView Name="ItemList" Grid.Row="1" Margin="0,5,0,0" MinHeight="100">
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<TextBlock Text="{Binding Converter={StaticResource enumConverter}}" />
+					</DataTemplate>
+				</ListView.ItemTemplate>
+
+			</ListView>
+		</Grid>
+		<Grid Grid.Column="1" Margin="5,0,0,0">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="*" />
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
+			<Button Grid.Row="0" Command="{Binding AddCommand, ElementName=Self}">Add</Button>
+			<Button Grid.Row="2" Command="{Binding DeleteCommand, ElementName=Self}">Delete</Button>
+		</Grid>
+	</Grid>
+</UserControl>

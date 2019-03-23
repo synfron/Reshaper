@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="ReshaperUI.Display.Xaml.Controls.Settings.ScriptEngineSettingsContentControl"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			 xmlns:viewModels="clr-namespace:ReshaperUI.Display.ViewModels.Settings"
+			 xmlns:local="clr-namespace:ReshaperUI.Display.Xaml.Controls.Settings"
+			 mc:Ignorable="d" Name="Self">
+	<UserControl.DataContext>
+		<viewModels:ScriptEngineSettingsViewModel />
+	</UserControl.DataContext>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+		<StackPanel Grid.Row="0" Orientation="Vertical">
+			<Label Content="Script Run Timeout (Seconds):" Style="{StaticResource FieldHeader}" />
+			<TextBox Name="ScriptTimeoutInSeconds" Text="{Binding DataContext.ScriptTimeoutInSeconds, ElementName=Self, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TextBoxField}" />
+			<Label Content="Pool Engine Idle Expiration (Minutes):" Style="{StaticResource FieldHeader}" />
+			<TextBox Name="PoolEngineExpirationInMinutes" Text="{Binding DataContext.PoolEngineExpirationInMinutes, ElementName=Self, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TextBoxField}" />
+			<Label Content="Pool Engine Expires After N Uses:" Style="{StaticResource FieldHeader}" />
+			<TextBox Name="PoolEngineExpirationUseCount" Text="{Binding DataContext.PoolEngineExpirationUseCount, ElementName=Self, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TextBoxField}" />
+			<Label Content="Max Engines in Pool:" Style="{StaticResource FieldHeader}" />
+			<TextBox Name="MaxEnginesInPool" Text="{Binding DataContext.MaxEnginesInPool, ElementName=Self, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TextBoxField}" />
+		</StackPanel>
+		<Button Name="SaveButton" Grid.Row="1" CommandParameter="{Binding DataContext, ElementName=Self}" Command="{Binding DataContext.SaveCommand, ElementName=Self}" HorizontalAlignment="Right">Save</Button>
+	</Grid>
+</UserControl>

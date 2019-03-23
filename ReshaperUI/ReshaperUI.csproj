@@ -1,0 +1,445 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0CD611F5-5AB4-4300-9DAA-3930AE096A30}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ReshaperUI</RootNamespace>
+    <AssemblyName>ReshaperUI</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Attributes\IDependentAttribute.cs" />
+    <Compile Include="Attributes\ListRegularExpressionAttribute.cs" />
+    <Compile Include="Attributes\ListRegularExpressionDependentAttribute.cs" />
+    <Compile Include="Attributes\MinLengthDependentAttribute.cs" />
+    <Compile Include="Attributes\RangeDependentAttribute.cs" />
+    <Compile Include="Attributes\RegularExpressionDependentAttribute.cs" />
+    <Compile Include="Attributes\RequiredDependentAttribute.cs" />
+    <Compile Include="Attributes\SourceModelAttribute.cs" />
+    <Compile Include="Attributes\SourceModelPropertyAttribute.cs" />
+    <Compile Include="Attributes\VisibleDependentAttribute.cs" />
+    <Compile Include="UILifetimeManager.cs" />
+    <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Commands\SourceModelSaveCommand.cs" />
+    <Compile Include="Converters\AttributeToVisibilityConverter.cs" />
+    <Compile Include="Converters\EnumToStringConverter.cs" />
+    <Compile Include="Converters\ListToObservableCollectionConverter.cs" />
+    <Compile Include="Converters\ObservableCollectionToListConverter.cs" />
+    <Compile Include="Converters\StringToEscapedStringConverter.cs" />
+    <Compile Include="Converters\VariableStringToStringConverter.cs" />
+    <Compile Include="Display\Interfaces\IModelPresenter.cs" />
+    <Compile Include="Display\ViewModels\Base\BaseViewModel.cs" />
+    <Compile Include="Display\ViewModels\Base\FormViewModel.cs" />
+    <Compile Include="Display\ViewModels\Base\JsonBasedModel.cs" />
+    <Compile Include="Display\ViewModels\Base\ObservableViewModel.cs" />
+    <Compile Include="Display\ViewModels\Base\SourceModelViewModel.cs" />
+    <Compile Include="Display\ViewModels\EventViews\EventViewViewModel.cs" />
+    <Compile Include="Display\ViewModels\EventViews\HttpEventListViewModel.cs" />
+    <Compile Include="Display\ViewModels\EventViews\HttpEventViewModel.cs" />
+    <Compile Include="Display\ViewModels\EventViews\HttpResendRequestViewModel.cs" />
+    <Compile Include="Display\ViewModels\EventViews\IEventViewModel.cs" />
+    <Compile Include="Display\ViewModels\EventViews\InputPromptViewModel.cs" />
+    <Compile Include="Display\ViewModels\EventViews\LogEventsViewModel.cs" />
+    <Compile Include="Display\ViewModels\EventViews\MenuItemViewModel.cs" />
+    <Compile Include="Display\ViewModels\EventViews\TextEventListViewModel.cs" />
+    <Compile Include="Display\ViewModels\EventViews\TextEventViewModel.cs" />
+    <Compile Include="Display\ViewModels\EventViews\TextResendMessageViewModel.cs" />
+    <Compile Include="Display\ViewModels\Rules\HttpRulesViewModel.cs" />
+    <Compile Include="Display\ViewModels\Rules\HttpRuleViewModel.cs" />
+    <Compile Include="Display\ViewModels\Rules\IHttpRuleOperationModel.cs" />
+    <Compile Include="Display\ViewModels\Rules\RuleOperationViewModel.cs" />
+    <Compile Include="Display\ViewModels\Rules\RulesViewModel.cs" />
+    <Compile Include="Display\ViewModels\Rules\RuleViewModel.cs" />
+    <Compile Include="Display\ViewModels\Rules\TextRulesViewModel.cs" />
+    <Compile Include="Display\ViewModels\Rules\TextRuleViewModel.cs" />
+    <Compile Include="Display\ViewModels\Rules\Thens\ThenAddMessageViewModel.cs" />
+    <Compile Include="Display\ViewModels\Rules\Thens\ThenBroadcastViewModel.cs" />
+    <Compile Include="Display\ViewModels\Rules\Thens\ThenConnectViewModel.cs" />
+    <Compile Include="Display\ViewModels\Rules\Thens\ThenDelayViewModel.cs" />
+    <Compile Include="Display\ViewModels\Rules\Thens\ThenDelimitHttpViewModel.cs" />
+    <Compile Include="Display\ViewModels\Rules\Thens\ThenDelimitTextViewModel.cs" />
+    <Compile Include="Display\ViewModels\Rules\Thens\ThenDisconnectViewModel.cs" />
+    <Compile Include="Display\ViewModels\Rules\Thens\ThenHttpConnectViewModel.cs" />
+    <Compile Include="Display\ViewModels\Rules\Thens\ThenLogViewModel.cs" />
+    <Compile Include="Display\ViewModels\Rules\Thens\ThenRunScriptViewModel.cs" />
+    <Compile Include="Display\ViewModels\Rules\Thens\ThenSendDataViewModel.cs" />
+    <Compile Include="Display\ViewModels\Rules\Thens\ThenSetValueViewModel.cs" />
+    <Compile Include="Display\ViewModels\Rules\Thens\ThenSetVariableViewModel.cs" />
+    <Compile Include="Display\ViewModels\Rules\Thens\ThenSetViewModel.cs" />
+    <Compile Include="Display\ViewModels\Rules\Thens\ThenSkipProcessingViewModel.cs" />
+    <Compile Include="Display\ViewModels\Rules\Thens\ThenViewModel.cs" />
+    <Compile Include="Display\ViewModels\Rules\ITextRuleOperationModel.cs" />
+    <Compile Include="Display\ViewModels\Rules\Whens\WhenEventDirectionViewModel.cs" />
+    <Compile Include="Display\ViewModels\Rules\Whens\WhenEventTypeViewModel.cs" />
+    <Compile Include="Display\ViewModels\Rules\Whens\WhenHasEntityViewModel.cs" />
+    <Compile Include="Display\ViewModels\Rules\Whens\WhenIsDelimitedViewModel.cs" />
+    <Compile Include="Display\ViewModels\Rules\Whens\WhenIsSystemProxyViewModel.cs" />
+    <Compile Include="Display\ViewModels\Rules\Whens\WhenMatchesTextViewModel.cs" />
+    <Compile Include="Display\ViewModels\Rules\Whens\WhenProxyTypeViewModel.cs" />
+    <Compile Include="Display\ViewModels\Rules\Whens\WhenViewModel.cs" />
+    <Compile Include="Display\ViewModels\Settings\GeneralSettingsViewModel.cs" />
+    <Compile Include="Display\ViewModels\Settings\ProxyListViewModel.cs" />
+    <Compile Include="Display\ViewModels\Settings\ProxyViewModel.cs" />
+    <Compile Include="Display\ViewModels\Settings\ScriptEngineSettingsViewModel.cs" />
+    <Compile Include="Display\ViewModels\Settings\ScriptListViewModel.cs" />
+    <Compile Include="Display\ViewModels\Settings\ScriptViewModel.cs" />
+    <Compile Include="Display\ViewModels\Settings\SettingsListViewModel.cs" />
+    <Compile Include="Display\ViewModels\Settings\VariablesListViewModel.cs" />
+    <Compile Include="Display\ViewModels\Settings\VariableViewModel.cs" />
+    <Compile Include="Display\Xaml\Controls\Common\EditableList.xaml.cs">
+      <DependentUpon>EditableList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Display\Xaml\Controls\EventView\HttpEventViewTabContentControl.xaml.cs">
+      <DependentUpon>HttpEventViewTabContentControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Display\Xaml\Controls\EventView\HttpRulesEventViewTabContentControl.xaml.cs">
+      <DependentUpon>HttpRulesEventViewTabContentControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Display\Xaml\Controls\EventView\LogEventViewTabContentControl.xaml.cs">
+      <DependentUpon>LogEventViewTabContentControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Display\Xaml\Controls\EventView\SettingsEventViewTabContentControl.xaml.cs">
+      <DependentUpon>SettingsEventViewTabContentControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Display\Xaml\Controls\EventView\TextEventViewTabContentControl.xaml.cs">
+      <DependentUpon>TextEventViewTabContentControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Display\Xaml\Controls\EventView\TextRulesEventViewTabContentControl.xaml.cs">
+      <DependentUpon>TextRulesEventViewTabContentControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Display\Xaml\Controls\Menu\MenuBarControl.xaml.cs">
+      <DependentUpon>MenuBarControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Display\Xaml\Controls\Rules\RuleContentControl.xaml.cs">
+      <DependentUpon>RuleContentControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Display\Xaml\Controls\Rules\ThenAddMessageControl.xaml.cs">
+      <DependentUpon>ThenAddMessageControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Display\Xaml\Controls\Rules\ThenBroadcastControl.xaml.cs">
+      <DependentUpon>ThenBroadcastControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Display\Xaml\Controls\Rules\ThenConnectControl.xaml.cs">
+      <DependentUpon>ThenConnectControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Display\Xaml\Controls\Rules\ThenDelayControl.xaml.cs">
+      <DependentUpon>ThenDelayControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Display\Xaml\Controls\Rules\ThenDelimitHttpControl.xaml.cs">
+      <DependentUpon>ThenDelimitHttpControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Display\Xaml\Controls\Rules\ThenDelimitTextControl.xaml.cs">
+      <DependentUpon>ThenDelimitTextControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Display\Xaml\Controls\Rules\ThenDisconnectControl.xaml.cs">
+      <DependentUpon>ThenDisconnectControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Display\Xaml\Controls\Rules\ThenHttpConnectControl.xaml.cs">
+      <DependentUpon>ThenHttpConnectControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Display\Xaml\Controls\Rules\ThenLogControl.xaml.cs">
+      <DependentUpon>ThenLogControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Display\Xaml\Controls\Rules\ThenRunScriptControl.xaml.cs">
+      <DependentUpon>ThenRunScriptControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Display\Xaml\Controls\Rules\ThenSendDataControl.xaml.cs">
+      <DependentUpon>ThenSendDataControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Display\Xaml\Controls\Rules\ThenSetValueControl.xaml.cs">
+      <DependentUpon>ThenSetValueControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Display\Xaml\Controls\Rules\ThenSetVariableControl.xaml.cs">
+      <DependentUpon>ThenSetVariableControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Display\Xaml\Controls\Rules\ThenSkipProcessingControl.xaml.cs">
+      <DependentUpon>ThenSkipProcessingControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Display\Xaml\Controls\Rules\WhenEventDirectionControl.xaml.cs">
+      <DependentUpon>WhenEventDirectionControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Display\Xaml\Controls\Rules\WhenEventTypeControl.xaml.cs">
+      <DependentUpon>WhenEventTypeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Display\Xaml\Controls\Rules\WhenHasEntityControl.xaml.cs">
+      <DependentUpon>WhenHasEntityControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Display\Xaml\Controls\Rules\WhenIsDelimitedControl.xaml.cs">
+      <DependentUpon>WhenIsDelimitedControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Display\Xaml\Controls\Rules\WhenIsSystemProxyControl.xaml.cs">
+      <DependentUpon>WhenIsSystemProxyControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Display\Xaml\Controls\Rules\WhenMatchesTextControl.xaml.cs">
+      <DependentUpon>WhenMatchesTextControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Display\Xaml\Controls\Rules\WhenProxyTypeControl.xaml.cs">
+      <DependentUpon>WhenProxyTypeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Display\Xaml\Controls\Settings\GeneralSettingsContentControl.xaml.cs">
+      <DependentUpon>GeneralSettingsContentControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Display\Xaml\Controls\Settings\ProxiesSettingsContentControl.xaml.cs">
+      <DependentUpon>ProxiesSettingsContentControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Display\Xaml\Controls\Settings\ScriptEngineSettingsContentControl.xaml.cs">
+      <DependentUpon>ScriptEngineSettingsContentControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Display\Xaml\Controls\Settings\ScriptSettingsContentControl.xaml.cs">
+      <DependentUpon>ScriptSettingsContentControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Display\Xaml\Controls\Settings\VariablesSettingsContentControl.xaml.cs">
+      <DependentUpon>VariablesSettingsContentControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Display\Xaml\Windows\EventViewWindow.xaml.cs">
+      <DependentUpon>EventViewWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Display\Xaml\Windows\HttpResendRequestWindow.xaml.cs">
+      <DependentUpon>HttpResendRequestWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Display\Xaml\Windows\InputPromptWindow.xaml.cs">
+      <DependentUpon>InputPromptWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Display\Xaml\Windows\TextResendMessageWindow.xaml.cs">
+      <DependentUpon>TextResendMessageWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Factories\IInputPromptModelPresenterFactory.cs" />
+    <Compile Include="Factories\InputPromptModelPresenterFactory.cs" />
+    <Compile Include="Factories\IResendEventModelPresenterFactory.cs" />
+    <Compile Include="Factories\ResendEventModelPresenterFactory.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\EventViewModelPresenterProvider.cs" />
+    <Compile Include="Providers\GeneralInterfaceSettingsProvider.cs" />
+    <Compile Include="Providers\InputPromptModelPresenterFactoryProvider.cs" />
+    <Compile Include="Providers\ResendEventModelPresenterFactoryProvider.cs" />
+    <Compile Include="Settings\GeneralInterfaceSettings.cs" />
+    <Compile Include="Settings\IGeneralInterfaceSettings.cs" />
+    <Compile Include="Utils\Flyweight.cs" />
+    <Compile Include="Utils\ThreadUtils.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Display\Xaml\Controls\Common\EditableList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Display\Xaml\Controls\EventView\HttpEventViewTabContentControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Display\Xaml\Controls\EventView\HttpRulesEventViewTabContentControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Display\Xaml\Controls\EventView\LogEventViewTabContentControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Display\Xaml\Controls\EventView\SettingsEventViewTabContentControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Display\Xaml\Controls\EventView\TextEventViewTabContentControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Display\Xaml\Controls\EventView\TextRulesEventViewTabContentControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Display\Xaml\Controls\Menu\MenuBarControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Display\Xaml\Controls\Rules\RuleContentControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Display\Xaml\Controls\Rules\ThenAddMessageControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Display\Xaml\Controls\Rules\ThenBroadcastControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Display\Xaml\Controls\Rules\ThenConnectControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Display\Xaml\Controls\Rules\ThenDelayControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Display\Xaml\Controls\Rules\ThenDelimitHttpControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Display\Xaml\Controls\Rules\ThenDelimitTextControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Display\Xaml\Controls\Rules\ThenDisconnectControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Display\Xaml\Controls\Rules\ThenHttpConnectControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Display\Xaml\Controls\Rules\ThenLogControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Display\Xaml\Controls\Rules\ThenRunScriptControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Display\Xaml\Controls\Rules\ThenSendDataControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Display\Xaml\Controls\Rules\ThenSetValueControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Display\Xaml\Controls\Rules\ThenSetVariableControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Display\Xaml\Controls\Rules\ThenSkipProcessingControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Display\Xaml\Controls\Rules\WhenEventDirectionControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Display\Xaml\Controls\Rules\WhenEventTypeControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Display\Xaml\Controls\Rules\WhenHasEntityControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Display\Xaml\Controls\Rules\WhenIsDelimitedControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Display\Xaml\Controls\Rules\WhenIsSystemProxyControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Display\Xaml\Controls\Rules\WhenMatchesTextControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Display\Xaml\Controls\Rules\WhenProxyTypeControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Display\Xaml\Controls\Settings\GeneralSettingsContentControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Display\Xaml\Controls\Settings\ProxiesSettingsContentControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Display\Xaml\Controls\Settings\ScriptEngineSettingsContentControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Display\Xaml\Controls\Settings\ScriptSettingsContentControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Display\Xaml\Controls\Settings\VariablesSettingsContentControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Display\Xaml\Themes\Common\Style.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Display\Xaml\Windows\EventViewWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Display\Xaml\Windows\HttpResendRequestWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Display\Xaml\Windows\InputPromptWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Display\Xaml\Windows\TextResendMessageWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ReshaperCore\ReshaperCore.csproj">
+      <Project>{1cfafa78-e77a-4e75-8949-be86aa620071}</Project>
+      <Name>ReshaperCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ReshaperScript\ReshaperScript.csproj">
+      <Project>{4dfe46ff-0359-4e4b-9f94-591a17629213}</Project>
+      <Name>ReshaperScript</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

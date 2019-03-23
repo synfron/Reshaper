@@ -1,0 +1,30 @@
+﻿<Window x:Class="ReshaperUI.Display.Xaml.Windows.TextResendMessageWindow"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:local="clr-namespace:ReshaperUI.Display.Xaml.Windows"
+		mc:Ignorable="d" Height="300" Width="400" MinWidth="200" MinHeight="100" Name="Self" Title="Resend Message" WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+		<Label Grid.Row="0" Content="Message" />
+		<TextBox Name="InputBox" Grid.Row="1" Text="{Binding DataContext.Text, ElementName=Self}" AcceptsReturn="True" TextWrapping="Wrap" ScrollViewer.CanContentScroll="True" />
+		<Grid Grid.Row="2">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="Auto" />
+			</Grid.ColumnDefinitions>
+			<StackPanel Grid.Column="0" Orientation="Horizontal" Margin="{StaticResource FieldMargin}">
+				<Label Content="Event Direction:" Style="{StaticResource FieldHeader}" Visibility="{Binding Visibility, ElementName=Direction}" />
+				<ComboBox Name="Direction" SelectedItem="{Binding DataContext.Direction, ElementName=Self, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ItemsSource="{Binding DataContext.DataDirections, ElementName=Self}">
+				</ComboBox>
+			</StackPanel>
+			<Button Name="SaveButton" Grid.Column="2" CommandParameter="{Binding Text, ElementName=InputBox}" Command="{Binding DataContext.SaveCommand, ElementName=Self}" HorizontalAlignment="Right">Save</Button>
+		</Grid>
+	</Grid>
+</Window>

@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="ReshaperUI.Display.Xaml.Controls.EventView.LogEventViewControl"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			 xmlns:local="clr-namespace:ReshaperUI.Display.Xaml.Controls.EventView"
+			 xmlns:viewModels="clr-namespace:ReshaperUI.Display.ViewModels.EventViews"
+			 mc:Ignorable="d" x:Name="Self">
+	<UserControl.DataContext>
+		<viewModels:LogEventsViewModel />
+	</UserControl.DataContext>
+	<Grid>
+		<TextBox Name="LogMessageBox"  Text="{Binding DataContext.LogText, ElementName=Self, Mode=OneWay}" AcceptsReturn="True" TextWrapping="Wrap" IsReadOnly="True" />
+	</Grid>
+</UserControl>

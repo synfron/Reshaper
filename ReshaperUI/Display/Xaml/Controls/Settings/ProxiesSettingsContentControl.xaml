@@ -1,0 +1,156 @@
+﻿<UserControl x:Class="ReshaperUI.Display.Xaml.Controls.Settings.ProxiesSettingsContentControl"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:system="clr-namespace:System;assembly=mscorlib"
+			 xmlns:converters="clr-namespace:ReshaperUI.Converters"
+			 xmlns:proxies="clr-namespace:ReshaperCore.Proxies;assembly=ReshaperCore"
+			 xmlns:viewModels="clr-namespace:ReshaperUI.Display.ViewModels.Settings"
+			 xmlns:common="clr-namespace:ReshaperUI.Display.Xaml.Controls.Common"
+			 xmlns:local="clr-namespace:ReshaperUI.Display.Xaml.Controls.Settings">
+	<UserControl.Resources>
+		<ResourceDictionary Source="pack://application:,,,/ReshaperUI;component/Display/Xaml/Themes/Common/Style.xaml"></ResourceDictionary>
+	</UserControl.Resources>
+	<Grid x:Name="ProxyListContainer">
+		<Grid.DataContext>
+			<viewModels:ProxyListViewModel />
+		</Grid.DataContext>
+		<Grid.Resources>
+			<converters:EnumToStringConverter x:Key="enumConverter"></converters:EnumToStringConverter>
+			<ObjectDataProvider x:Key="proxyDataType"
+					MethodName="GetValues" 
+					ObjectType="{x:Type system:Enum}">
+				<ObjectDataProvider.MethodParameters>
+					<x:Type TypeName="proxies:ProxyDataType" />
+				</ObjectDataProvider.MethodParameters>
+			</ObjectDataProvider>
+		</Grid.Resources>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="{StaticResource SideBarColumnWidth}" />
+			<ColumnDefinition Width="*" />
+		</Grid.ColumnDefinitions>
+		<Grid Grid.Column="0">
+			<StackPanel Orientation="Vertical">
+				<ListView Name="ProxyList" VerticalAlignment="Top" Height="200" SelectedIndex="0" ItemsSource="{Binding DataContext.Proxies, ElementName=ProxyListContainer}" SelectedItem="{Binding DataContext.SelectedProxy, ElementName=ProxyListContainer, Mode=OneWayToSource}">
+					<ListView.ItemTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding DisplayName}" />
+						</DataTemplate>
+					</ListView.ItemTemplate>
+				</ListView>
+			</StackPanel>
+		</Grid>
+		<Grid Grid.Column="1">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*" />
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
+			<WrapPanel Name="ProxyInfoContainer" Grid.Row="0" Orientation="Vertical" Margin="{StaticResource ContentSectionMargin}" DataContext="{Binding SelectedProxy}">
+				<WrapPanel.Style>
+					<Style TargetType="WrapPanel">
+						<Style.Triggers>
+							<DataTrigger Binding="{Binding DataContext, ElementName=ProxyInfoContainer}" Value="{x:Null}">
+								<Setter Property="Visibility" Value="Collapsed" />
+							</DataTrigger>
+						</Style.Triggers>
+					</Style>
+				</WrapPanel.Style>
+				<StackPanel Orientation="Vertical" Margin="{StaticResource FieldMargin}">
+					<Label Content="Proxy Name:" Style="{StaticResource FieldHeader}" />
+					<TextBox Name="ProxyName" Text="{Binding DataContext.ProxyName, ElementName=ProxyInfoContainer, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TextBoxField}" />
+				</StackPanel>
+				<StackPanel Orientation="Vertical" Margin="{StaticResource FieldMargin}">
+					<Label Content="Port:" Style="{StaticResource FieldHeader}" />
+					<TextBox Name="Port" Text="{Binding DataContext.Port, ElementName=ProxyInfoContainer, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TextBoxField}" />
+				</StackPanel>
+				<StackPanel Orientation="Vertical" Margin="{StaticResource FieldMargin}">
+					<Label Content="Proxy Type:" Style="{StaticResource FieldHeader}" />
+					<ComboBox Name="ProxyType" SelectedItem="{Binding DataContext.DataType, ElementName=ProxyInfoContainer, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Source={StaticResource proxyDataType}}">
+					</ComboBox>
+				</StackPanel>
+				<StackPanel Orientation="Vertical" Margin="{StaticResource FieldMargin}">
+					<Label Content="Destination Host:" Style="{StaticResource FieldHeader}" Visibility="{Binding Visibility, ElementName=DestinationHost}" />
+					<TextBox Name="DestinationHost" Text="{Binding DataContext.DestinationHost, ElementName=ProxyInfoContainer, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}">
+						<TextBox.Style>
+							<Style TargetType="TextBox" BasedOn="{StaticResource TextBoxField}">
+								<Style.Triggers>
+									<DataTrigger Binding="{Binding SelectedItem, ElementName=ProxyType}" Value="Http">
+										<Setter Property="Visibility" Value="Collapsed" />
+									</DataTrigger>
+								</Style.Triggers>
+							</Style>
+						</TextBox.Style>
+					</TextBox>
+				</StackPanel>
+				<StackPanel Orientation="Vertical" Margin="{StaticResource FieldMargin}">
+					<Label Content="Destination Port:" Style="{StaticResource FieldHeader}" Visibility="{Binding Visibility, ElementName=DestinationPort}" />
+					<TextBox Name="DestinationPort" Text="{Binding DataContext.DestinationPort, ElementName=ProxyInfoContainer, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}">
+						<TextBox.Style>
+							<Style TargetType="TextBox" BasedOn="{StaticResource TextBoxField}">
+								<Style.Triggers>
+									<DataTrigger Binding="{Binding SelectedItem, ElementName=ProxyType}" Value="HTTP">
+										<Setter Property="Visibility" Value="Collapsed" />
+									</DataTrigger>
+								</Style.Triggers>
+							</Style>
+						</TextBox.Style>
+					</TextBox>
+				</StackPanel>
+				<StackPanel Orientation="Vertical" Margin="{StaticResource FieldMargin}">
+					<CheckBox Name="UseDelimiter" IsChecked="{Binding DataContext.UseDelimiter, ElementName=ProxyInfoContainer, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}">
+						<CheckBox.Style>
+							<Style TargetType="CheckBox" BasedOn="{StaticResource {x:Type CheckBox}}">
+								<Style.Triggers>
+									<DataTrigger Binding="{Binding SelectedItem, ElementName=ProxyType}" Value="HTTP">
+										<Setter Property="Visibility" Value="Collapsed" />
+									</DataTrigger>
+								</Style.Triggers>
+							</Style>
+						</CheckBox.Style>
+						Use Delimiter
+					</CheckBox>
+					<Label Content="Delimiters:" Style="{StaticResource FieldHeader}" Visibility="{Binding Visibility, ElementName=DelimiterList}" />
+					<common:EditableList x:Name="DelimiterList" ItemsSource="{Binding DataContext.Delimiters, ElementName=ProxyInfoContainer, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" Width="200" HorizontalAlignment="Left"  Validation.ErrorTemplate="{x:Null}">
+						<UserControl.Style>
+							<Style TargetType="common:EditableList">
+								<Style.Triggers>
+									<Trigger Property="Validation.HasError" Value="true">
+										<Setter Property="ToolTip"
+		  Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+Path=(Validation.Errors)[0].ErrorContent}"/>
+										<Setter Property="ListBackground" Value="#f4e6e6" />
+									</Trigger>
+									<DataTrigger Binding="{Binding SelectedItem, ElementName=ProxyType}" Value="HTTP">
+										<Setter Property="Visibility" Value="Collapsed" />
+									</DataTrigger>
+									<DataTrigger Binding="{Binding IsChecked, ElementName=UseDelimiter}" Value="False">
+										<Setter Property="IsEnabled" Value="False" />
+									</DataTrigger>
+								</Style.Triggers>
+							</Style>
+						</UserControl.Style>
+					</common:EditableList>
+				</StackPanel>
+				<CheckBox Name="Enabled" Margin="{StaticResource SettingFieldCheckboxMargin}" IsChecked="{Binding DataContext.Enabled, ElementName=ProxyInfoContainer, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}">Enabled</CheckBox>
+				<CheckBox Name="RegisterAsSystemProxy" Margin="{StaticResource SettingFieldCheckboxMargin}" IsChecked="{Binding DataContext.RegisterAsSystemProxy, ElementName=ProxyInfoContainer, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}">
+					<CheckBox.Style>
+						<Style TargetType="CheckBox" BasedOn="{StaticResource {x:Type CheckBox}}">
+						<Style.Triggers>
+							<DataTrigger Binding="{Binding SelectedItem, ElementName=ProxyType}" Value="Text">
+								<Setter Property="Visibility" Value="Collapsed" />
+							</DataTrigger>
+							</Style.Triggers>
+						</Style>
+					</CheckBox.Style> 
+					Register As System Proxy
+				</CheckBox>
+				<CheckBox Name="AutoActivate" Margin="{StaticResource SettingFieldCheckboxMargin}" IsChecked="{Binding DataContext.AutoActivate, ElementName=ProxyInfoContainer, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}">Auto-Activate</CheckBox>
+			</WrapPanel>
+			<StackPanel Grid.Row="1" Orientation="Horizontal">
+				<Button Name="SaveRuleButton" CommandParameter="{Binding DataContext, ElementName=ProxyInfoContainer}" Command="{Binding DataContext.SaveCommand, ElementName=ProxyInfoContainer}" HorizontalAlignment="Right">Save</Button>
+				<Button Name="DeleteRuleButton" CommandParameter="{Binding DataContext, ElementName=ProxyInfoContainer}" Command="{Binding DataContext.DeleteCommand, ElementName=ProxyInfoContainer}" HorizontalAlignment="Right">Delete</Button>
+			</StackPanel>
+		</Grid>
+	</Grid>
+</UserControl>

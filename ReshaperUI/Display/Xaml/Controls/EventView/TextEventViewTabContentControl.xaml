@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="ReshaperUI.Display.Xaml.Controls.EventView.TextEventViewControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ReshaperUI.Display.Xaml.Controls.EventView"
+			 xmlns:viewModels="clr-namespace:ReshaperUI.Display.ViewModels.EventViews"
+             mc:Ignorable="d" x:Name="Self">
+	<UserControl.DataContext>
+		<viewModels:TextEventListViewModel />
+	</UserControl.DataContext>
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*" />
+			<ColumnDefinition Width="5" />
+			<ColumnDefinition Width="*" />
+		</Grid.ColumnDefinitions>
+		<Grid Grid.Column="0">
+			<DataGrid Name="EventList" ItemsSource="{Binding DataContext.EventList, ElementName=Self}" SelectedItem="{Binding DataContext.SelectedEvent, ElementName=Self, Mode=OneWayToSource}" AutoGenerateColumns="False" CanUserAddRows="False" SelectionMode="Extended" SelectionUnit="FullRow" HorizontalAlignment="Stretch" IsReadOnly="True" CanUserDeleteRows="False" CanUserResizeColumns="True">
+				<DataGrid.InputBindings>
+					<KeyBinding Key="Delete" Command="{Binding DeleteCommand}" CommandParameter="{Binding SelectedItems, ElementName=EventList}"/>
+				</DataGrid.InputBindings>
+				<DataGrid.ItemContainerStyle>
+					<Style TargetType="DataGridRow">
+						<Setter Property="ContextMenu">
+							<Setter.Value>
+								<ContextMenu ItemsSource="{Binding ContextMenuItems}">
+									<ContextMenu.ItemContainerStyle>
+										<Style TargetType="MenuItem">
+											<Setter Property="Header" Value="{Binding Label}" />
+											<Setter Property="Command" Value="{Binding Command}" />
+										</Style>
+									</ContextMenu.ItemContainerStyle>
+								</ContextMenu>
+							</Setter.Value>
+						</Setter>
+					</Style>
+				</DataGrid.ItemContainerStyle>
+				<DataGrid.Columns>
+					<DataGridTextColumn Header="Order" Width="Auto" Binding="{Binding Order}"/>
+					<DataGridTextColumn Header="Direction" Width="Auto" Binding="{Binding DirectionSymbol}"/>
+					<DataGridTextColumn Header="Message" Width="*" Binding="{Binding Message}"/>
+					<DataGridTextColumn Header="Proxy Name" Width="Auto" Binding="{Binding ProxyName}"/>
+					<DataGridTextColumn Header="Local Port" Width="Auto" Binding="{Binding LocalPort, Mode=OneTime}"/>
+					<DataGridTextColumn Header="Destination Host" Width="Auto" Binding="{Binding DestinationHost, Mode=OneTime}"/>
+					<DataGridTextColumn Header="Destination Port" Width="Auto" Binding="{Binding DestinationPort, Mode=OneTime}"/>
+				</DataGrid.Columns>
+			</DataGrid>
+		</Grid>
+		<GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
+		<Grid Grid.Column="2">
+			<TextBox Text="{Binding DataContext.SelectedEvent.Message, ElementName=Self, Mode=OneWay}" AcceptsReturn="True" TextWrapping="Wrap" IsReadOnly="True" />
+		</Grid>
+	</Grid>
+</UserControl>

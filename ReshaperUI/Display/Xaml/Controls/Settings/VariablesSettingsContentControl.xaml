@@ -1,0 +1,70 @@
+﻿<UserControl x:Class="ReshaperUI.Display.Xaml.Controls.Settings.VariablesSettingsContentControl"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			 xmlns:local="clr-namespace:ReshaperUI.Display.Xaml.Controls.Settings"
+			 xmlns:viewModels="clr-namespace:ReshaperUI.Display.ViewModels.Settings"
+			 mc:Ignorable="d">
+	<UserControl.Resources>
+		<ResourceDictionary Source="pack://application:,,,/ReshaperUI;component/Display/Xaml/Themes/Common/Style.xaml"></ResourceDictionary>
+	</UserControl.Resources>
+	<Grid x:Name="VariableListContainer">
+		<Grid.Resources>
+			<Thickness x:Key="FieldMargin">8,0</Thickness>
+		</Grid.Resources>
+		<Grid.DataContext>
+			<viewModels:VariablesListViewModel />
+		</Grid.DataContext>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="{StaticResource SideBarColumnWidth}" />
+			<ColumnDefinition Width="*" />
+		</Grid.ColumnDefinitions>
+		<Grid Grid.Column="0">
+			<ListView x:Name="VariableList" SelectedIndex="0" ItemsSource="{Binding DataContext.Variables, ElementName=VariableListContainer}" SelectedItem="{Binding DataContext.SelectedVariable, ElementName=VariableListContainer, Mode=OneWayToSource}">
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<TextBlock Text="{Binding DisplayName}" />
+					</DataTemplate>
+				</ListView.ItemTemplate>
+			</ListView>
+		</Grid>
+		<Grid Grid.Column="1">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*" />
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
+			<Grid Name="VariableInfoContainer" Grid.Row="0" Margin="{StaticResource ContentSectionMargin}" DataContext="{Binding SelectedVariable}">
+				<Grid.Style>
+					<Style TargetType="Grid">
+						<Style.Triggers>
+							<DataTrigger Binding="{Binding DataContext, ElementName=VariableInfoContainer}" Value="{x:Null}">
+								<Setter Property="Visibility" Value="Collapsed" />
+							</DataTrigger>
+						</Style.Triggers>
+					</Style>
+				</Grid.Style>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="*" />
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				<StackPanel Grid.Row="0" Orientation="Vertical" Margin="{StaticResource FieldMargin}">
+					<Label Content="Variable Name:" Style="{StaticResource FieldHeader}" />
+					<TextBox Name="VariableName" Text="{Binding DataContext.VariableName, ElementName=VariableInfoContainer, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding DataContext.IsNew, ElementName=VariableInfoContainer}" Style="{StaticResource TextBoxField}" />
+				</StackPanel>
+				<Label Content="Variable Text:" Grid.Row="1" Style="{StaticResource FieldHeader}" Visibility="{Binding Visibility, ElementName=VariableText}" Margin="{StaticResource FieldMargin}" />
+				<ScrollViewer Grid.Row="2" Margin="{StaticResource FieldMargin}">
+					<TextBox Name="VariableText" Text="{Binding DataContext.VariableText, ElementName=VariableInfoContainer, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" HorizontalAlignment="Stretch">
+					</TextBox>
+				</ScrollViewer>
+				<CheckBox Name="Persistent" Grid.Row="3" Margin="{StaticResource SettingFieldCheckboxMargin}" IsChecked="{Binding DataContext.Persistent, ElementName=VariableInfoContainer, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}">Persistent</CheckBox>
+			</Grid>
+			<StackPanel Grid.Row="1" Orientation="Horizontal">
+				<Button Name="SaveVariableButton" CommandParameter="{Binding DataContext, ElementName=VariableInfoContainer}" Command="{Binding DataContext.SaveCommand, ElementName=VariableInfoContainer}" HorizontalAlignment="Right">Save</Button>
+				<Button Name="DeleteVariableButton" CommandParameter="{Binding DataContext, ElementName=VariableInfoContainer}" Command="{Binding DataContext.DeleteCommand, ElementName=VariableInfoContainer}" HorizontalAlignment="Right">Delete</Button>
+			</StackPanel>
+		</Grid>
+	</Grid>
+</UserControl>

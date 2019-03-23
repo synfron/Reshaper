@@ -1,0 +1,52 @@
+﻿HTTP/1.1 200 OK
+Date: Fri, 05 Feb 2016 06:00:16 GMT
+Server: Apache
+X-Powered-By: PHP/5.6.15
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+Pragma: no-cache
+Keep-Alive: timeout=2, max=198
+Connection: Keep-Alive
+Content-Type: text/html; charset=UTF-8
+Content-Length: 149
+
+
+function add_emoticon(emoticon) {
+	document.getElementById("shout_message").value += emoticon;
+ 	document.getElementById("shout_message").focus();
+}
+HTTP/1.1 302 Moved Temporarily
+Date: Fri, 05 Feb 2016 06:00:14 GMT
+Server: Apache
+X-Powered-By: PHP/5.6.15
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+Pragma: no-cache
+Location: /
+Content-Length: 0
+Keep-Alive: timeout=2, max=200
+Connection: Keep-Alive
+Content-Type: text/html; charset=UTF-8
+
+HTTP/1.1 301 Moved Permanently
+Date: Fri, 05 Feb 2016 05:56:31 GMT
+Content-Type: text/html
+Connection: keep-alive
+Cache-control: no-cache="set-cookie"
+Location: http://www.w3counter.com/tracker.js
+CF-Cache-Status: MISS
+Vary: Accept-Encoding
+Server: cloudflare-nginx
+CF-RAY: 26fc5f5d664509b8-ORD
+Content-Length: 178
+
+<html>
+<head><title>301 Moved Permanently</title></head>
+<body bgcolor="white">
+<center><h1>301 Moved Permanently</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+
+

@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="ReshaperUI.Display.Xaml.Controls.EventView.HttpRulesEventViewControl"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			 xmlns:local="clr-namespace:ReshaperUI.Display.Xaml.Controls.EventView"
+			 xmlns:viewModels="clr-namespace:ReshaperUI.Display.ViewModels.Rules"
+			 xmlns:ruleViews="clr-namespace:ReshaperUI.Display.Xaml.Controls.Rules"
+			 mc:Ignorable="d" Name="Self">
+	<UserControl.DataContext>
+		<viewModels:HttpRulesViewModel />
+	</UserControl.DataContext>
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="250" />
+			<ColumnDefinition Width="*" />
+		</Grid.ColumnDefinitions>
+		<Grid Grid.Column="0">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*" />
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
+			<ListView Name="RulesList" Grid.Row="0" ItemsSource="{Binding DataContext.Rules, ElementName=Self}" SelectedItem="{Binding DataContext.SelectedRule, ElementName=Self, Mode=OneWayToSource}">
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<TextBlock Text="{Binding DisplayName}" />
+					</DataTemplate>
+				</ListView.ItemTemplate>
+			</ListView>
+			<StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
+				<Button x:Name="MoveUpButton" Margin="4,4,0,4" CommandParameter="{Binding DataContext.SelectedRule.Rule, ElementName=Self}" Command="{Binding DataContext.MoveUpCommand, ElementName=Self}">Move Up</Button>
+				<Button x:Name="MoveDownButton" Margin="4" CommandParameter="{Binding DataContext.SelectedRule.Rule, ElementName=Self}" Command="{Binding DataContext.MoveDownCommand, ElementName=Self}">Move Down</Button>
+				<Button x:Name="DeleteButton" Margin="0,4,4,4" CommandParameter="{Binding DataContext.SelectedRule.Rule, ElementName=Self}" Command="{Binding DataContext.DeleteCommand, ElementName=Self}">Delete</Button>
+			</StackPanel>
+		</Grid>
+		<Grid Name="RulesContent" Grid.Column="1">
+			<Grid.Style>
+				<Style TargetType="Grid">
+					<Style.Triggers>
+						<DataTrigger Binding="{Binding DataContext, ElementName=RuleContainer}" Value="{x:Null}">
+							<Setter Property="Visibility" Value="Collapsed" />
+						</DataTrigger>
+					</Style.Triggers>
+				</Style>
+			</Grid.Style>
+			<ruleViews:RuleContentControl x:Name="RuleContainer" DataContext="{Binding DataContext.SelectedRule, ElementName=Self}" />
+		</Grid>
+	</Grid>
+</UserControl>

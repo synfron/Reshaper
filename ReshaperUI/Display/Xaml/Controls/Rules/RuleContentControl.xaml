@@ -1,0 +1,112 @@
+﻿<UserControl x:Class="ReshaperUI.Display.Xaml.Controls.Rules.RuleContentControl"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			 xmlns:local="clr-namespace:ReshaperUI.Display.Xaml.Controls.Rules"
+			 mc:Ignorable="d" Name="Self">
+	<UserControl.Resources>
+		<ResourceDictionary Source="pack://application:,,,/ReshaperUI;component/Display/Xaml/Themes/Common/Style.xaml"></ResourceDictionary>
+	</UserControl.Resources>
+	<Grid Margin="{StaticResource ContentSectionMargin}">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+		<StackPanel Orientation="Vertical" Grid.Row="0">
+			<StackPanel Orientation="Vertical" Margin="{StaticResource FieldMargin}" Visibility="{Binding Visibility, ElementName=RuleName}">
+				<Label Content="Rule Name:" Style="{StaticResource FieldHeader}" />
+				<TextBox Name="RuleName" Text="{Binding DataContext.RuleName, ElementName=Self, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TextBoxField}" />
+			</StackPanel>
+			<CheckBox Name="Enabled" Margin="{StaticResource SettingFieldCheckboxMargin}" IsChecked="{Binding DataContext.Enabled, ElementName=Self, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}">Enabled</CheckBox>
+		</StackPanel>
+		<Grid Grid.Row="1">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
+			<Border Grid.Column="0" Padding="5" Margin="5,0,2,0" Background="#F9F9F9">
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="*" />
+					</Grid.RowDefinitions>
+					<StackPanel Grid.Row="0">
+						<StackPanel Orientation="Vertical" Margin="{StaticResource FieldMargin}">
+							<Label Content="New When Type:" Style="{StaticResource FieldHeader}" Visibility="{Binding Visibility, ElementName=NewWhenName}" />
+							<StackPanel Orientation="Horizontal">
+								<ComboBox Name="NewWhenName" VerticalAlignment="Center" Margin="0" SelectedItem="{Binding DataContext.NewWhenName, ElementName=Self, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding DataContext.WhenNames, ElementName=Self, Mode=OneWay}">
+								</ComboBox>
+								<Button Name="AddWhenButton" CommandParameter="{Binding SelectedItem, ElementName=NewWhenName}" Command="{Binding DataContext.AddWhenCommand, ElementName=Self}" HorizontalAlignment="Right" VerticalAlignment="Center">Add</Button>
+							</StackPanel>
+						</StackPanel>
+						<Label>When</Label>
+						<ListView Name="WhenList" VerticalAlignment="Top" Height="100" SelectedIndex="0" ItemsSource="{Binding DataContext.Whens, ElementName=Self}" SelectedItem="{Binding DataContext.SelectedWhen, ElementName=Self}">
+							<ListView.ItemTemplate>
+								<DataTemplate>
+									<TextBlock Text="{Binding DisplayName}" />
+								</DataTemplate>
+							</ListView.ItemTemplate>
+						</ListView>
+						<Button Name="DeleteWhenButton" CommandParameter="{Binding SelectedItem, ElementName=WhenList}" Command="{Binding DataContext.DeleteWhenCommand, ElementName=Self}" HorizontalAlignment="Right">Delete</Button>
+					</StackPanel>
+					<ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+						<ContentPresenter Name="WhenContent" Content="{Binding DataContext.SelectedWhen.Presenter, ElementName=Self}">
+							<ContentPresenter.Style>
+								<Style TargetType="ContentPresenter">
+									<Style.Triggers>
+										<DataTrigger Binding="{Binding DataContext.SelectedWhen, ElementName=Self}" Value="{x:Null}">
+											<Setter Property="Visibility" Value="Collapsed" />
+										</DataTrigger>
+									</Style.Triggers>
+								</Style>
+							</ContentPresenter.Style>
+						</ContentPresenter>
+					</ScrollViewer>
+				</Grid>
+			</Border>
+			<Border Grid.Column="1" Padding="5" Margin="2,0,5,0" Background="#F9F9F9">
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="*" />
+					</Grid.RowDefinitions>
+					<StackPanel  Grid.Row="0">
+						<StackPanel Orientation="Vertical" Margin="{StaticResource FieldMargin}">
+							<Label Content="New Then Type:" Style="{StaticResource FieldHeader}" Visibility="{Binding Visibility, ElementName=NewThenName}" />
+							<StackPanel Orientation="Horizontal">
+								<ComboBox Name="NewThenName" SelectedItem="{Binding DataContext.NewThenName, ElementName=Self, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Margin="0" ItemsSource="{Binding DataContext.ThenNames, ElementName=Self, Mode=OneWay}">
+								</ComboBox>
+								<Button Name="AddThenButton" CommandParameter="{Binding SelectedItem, ElementName=NewThenName}" Command="{Binding DataContext.AddThenCommand, ElementName=Self}" VerticalAlignment="Center" HorizontalAlignment="Right">Add</Button>
+							</StackPanel>
+						</StackPanel>
+						<Label>Then</Label>
+						<ListView Name="ThenList" VerticalAlignment="Top" Height="100" SelectedIndex="0" ItemsSource="{Binding DataContext.Thens, ElementName=Self}" SelectedItem="{Binding DataContext.SelectedThen, ElementName=Self}">
+							<ListView.ItemTemplate>
+								<DataTemplate>
+									<TextBlock Text="{Binding DisplayName}" />
+								</DataTemplate>
+							</ListView.ItemTemplate>
+						</ListView>
+						<Button Name="DeleteThenButton" CommandParameter="{Binding DataContext.SelectedThen, ElementName=Self}" Command="{Binding DataContext.DeleteThenCommand, ElementName=Self}" HorizontalAlignment="Right">Delete</Button>
+					</StackPanel>
+					<ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+						<ContentPresenter Name="ThenContent" Content="{Binding DataContext.SelectedThen.Presenter, ElementName=Self}">
+							<ContentPresenter.Style>
+								<Style TargetType="ContentPresenter">
+									<Style.Triggers>
+										<DataTrigger Binding="{Binding DataContext.SelectedThen, ElementName=Self}" Value="{x:Null}">
+											<Setter Property="Visibility" Value="Collapsed" />
+										</DataTrigger>
+									</Style.Triggers>
+								</Style>
+							</ContentPresenter.Style>
+						</ContentPresenter>
+					</ScrollViewer>
+				</Grid>
+			</Border>
+		</Grid>
+		<Button Name="SaveRuleButton" Grid.Row="2" CommandParameter="{Binding DataContext, ElementName=Self}" Command="{Binding DataContext.SaveCommand, ElementName=Self}" HorizontalAlignment="Right" VerticalAlignment="Bottom">Save</Button>
+	</Grid>
+</UserControl>

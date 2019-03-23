@@ -1,0 +1,12 @@
+﻿POST http://www.syngames.net/account/login.php HTTP/1.1
+Host: www.syngames.net
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:43.0) Gecko/20100101 Firefox/43.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Referer: http://www.syngames.net/
+Cookie: __utma=75527319.894017908.1450359518.1452069589.1454651852.3; __utmz=75527319.1450359520.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); PHPSESSID=be2d1e84eb423f3539f976c3aa914b31; __utmb=75527319.2.10.1454651853; __utmc=75527319; __utmt=1
+Connection: keep-alive
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 10
+
+uname=dfsdfd&upass=vdfvfd

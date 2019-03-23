@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="ReshaperUI.Display.Xaml.Controls.Menu.MenuBarControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ReshaperUI.Display.Xaml.Controls.Menu"
+			 xmlns:viewModels="clr-namespace:ReshaperUI.Display.ViewModels.Settings"
+             mc:Ignorable="d" Name="Self">
+	<Grid>
+        <Menu>
+            <MenuItem Name="ProxiesMenu" Header="Proxies" ItemsSource="{Binding Proxies, Mode=OneWay}">
+				<MenuItem.DataContext>
+					<viewModels:ProxyListViewModel />
+				</MenuItem.DataContext>
+				<MenuItem.ItemContainerStyle>
+					<Style TargetType="MenuItem">
+						<Setter Property="Header" Value="{Binding DisplayName}" />
+						<Setter Property="IsCheckable" Value="True" />
+						<Setter Property="IsChecked" Value="{Binding Enabled, Mode=TwoWay}" />
+						<Setter Property="CommandParameter" Value="{Binding}" />
+						<Setter Property="Command" Value="{Binding SaveCommand}" />
+						<Style.Triggers>
+							<DataTrigger Binding="{Binding IsNew}" Value="True">
+								<Setter Property="Visibility" Value="Collapsed" />
+							</DataTrigger>
+						</Style.Triggers>
+					</Style>
+				</MenuItem.ItemContainerStyle>
+			</MenuItem>
+			<MenuItem Name="ViewMenu" Header="View">
+				<MenuItem Name="ViewText" Header="Text Events" IsCheckable="True" IsChecked="{Binding DataContext.ShowTextEvents, ElementName=Self, Mode=TwoWay}" />
+                <MenuItem Name="ViewHttp" Header="HTTP Events" IsCheckable="True" IsChecked="{Binding DataContext.ShowHttpEvents, ElementName=Self, Mode=TwoWay}" />
+				<MenuItem Name="ViewTextRules" Header="Text Rules" IsCheckable="True" IsChecked="{Binding DataContext.ShowTextRules, ElementName=Self, Mode=TwoWay}" />
+				<MenuItem Name="ViewHttpRules" Header="HTTP Rules" IsCheckable="True" IsChecked="{Binding DataContext.ShowHttpRules, ElementName=Self, Mode=TwoWay}" />
+                <MenuItem Name="ViewLog" Header="Log" IsCheckable="True" IsChecked="{Binding DataContext.ShowLog, ElementName=Self, Mode=TwoWay}" />
+				<MenuItem Name="ViewSettings" Header="Settings" IsCheckable="True" IsChecked="{Binding DataContext.ShowSettings, ElementName=Self, Mode=TwoWay}" />
+			</MenuItem>
+		</Menu>
+	</Grid>
+</UserControl>

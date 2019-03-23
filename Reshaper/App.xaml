@@ -1,0 +1,8 @@
+﻿<Application x:Class="Reshaper.App"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:local="clr-namespace:Reshaper">
+	<Application.Resources>
+		<ResourceDictionary Source="pack://application:,,,/ReshaperUI;component/Display/Xaml/Themes/Common/Style.xaml"></ResourceDictionary>
+	</Application.Resources>
+</Application>
